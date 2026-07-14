@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Skill Arbitrage Radar API
+  version: 1.0.0
+  description: Type-safe tRPC API for skill arbitrage platform
+
+paths:
+  /api/trpc/ping:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  ts: { type: number }
+
+  /api/trpc/arbitrage.list:
+    get:
+      summary: List arbitrage opportunities
+      parameters:
+        - name: input
+          in: query
+          schema:
+            type: object
+            properties:
+              limit: { type: integer, default: 10 }
+              minArbitrageScore: { type: number, default: 40 }
+      responses:
+        '200':
+          description: List of opportunities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillCombination'
+
+  /api/trpc/arbitrage.recommend:
+    get:
+      summary: Personalized recommendations
+      responses:
+        '200':
+          description: Ranked recommendations with rationale
+
+  /api/trpc/profile.get:
+    get:
+      summary: Get user profile
+      responses:
+        '200':
+          description: User profile or null
+
+  /api/trpc/profile.upsert:
+    post:
+      summary: Create/update profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                skills: { type: array, items: { type: string } }
+                experienceLevel: { type: string, enum: [beginner, intermediate, advanced] }
+                timeAvailableHoursPerWeek: { type: integer }
+                constraints: { type: object }
+                targetIncomeMonthly: { type: integer }
+
+  /api/trpc/execution.list:
+    get:
+      summary: Get user's tasks
+      responses:
+        '200':
+          description: List of execution tasks
+
+  /api/trpc/income.list:
+    get:
+      summary: Get income logs
+      responses:
+        '200':
+          description: List of income entries
+
+  /api/trpc/income.summary:
+    get:
+      summary: Income summary stats
+      responses:
+        '200':
+          description: Aggregated income data
+
+  /api/trpc/scraper.status:
+    get:
+      summary: Scraper health dashboard
+      responses:
+        '200':
+          description: Per-source scraper status
+
+components:
+  schemas:
+    SkillCombination:
+      type: object
+      properties:
+        id: { type: integer }
+        combinationName: { type: string }
+        arbitrageScore: { type: number }
+        demandScore: { type: number }
+        supplyScore: { type: number }
+        avgHourlyRateUsd: { type: number }
+        jobCount30d: { type: integer }
+        freelancerCount30d: { type: integer }
+        trendDirection: { type: string }
