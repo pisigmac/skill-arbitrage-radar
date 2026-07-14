@@ -1,0 +1,32 @@
+# Rate Limiting Rules
+limits:
+  user:
+    - endpoint: "arbitrage.*"
+      window: 60
+      max: 100
+    - endpoint: "portfolio.*"
+      window: 60
+      max: 30
+    - endpoint: "outreach.*"
+      window: 60
+      max: 50
+    - endpoint: "execution.*"
+      window: 60
+      max: 60
+    - endpoint: "income.*"
+      window: 60
+      max: 60
+  ip:
+    - endpoint: "arbitrage.list"
+      window: 60
+      max: 20
+    - endpoint: "arbitrage.getById"
+      window: 60
+      max: 30
+  admin:
+    - endpoint: "scraper.trigger"
+      window: 60
+      max: 5
+
+strategy: sliding_window
+storage: redis

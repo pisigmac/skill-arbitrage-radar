@@ -1,0 +1,33 @@
+# Staging Environment
+name: staging
+url: https://staging.skillarbitrageradar.com
+
+infrastructure:
+  replicas: 1
+  db_size: db.t3.micro
+  redis_size: cache.t3.micro
+
+seeding:
+  users: 10
+  skill_combinations: 10
+  job_postings: 100
+  portfolio_projects: 5
+  outreach_templates: 10
+  execution_tasks: 30
+  income_logs: 20
+
+smoke_tests:
+  - name: health_check
+    url: /api/trpc/ping
+    expected: '{"ok":true}'
+  - name: arbitrage_list
+    url: /api/trpc/arbitrage.list
+    expected_status: 200
+  - name: login_page
+    url: /
+    expected_status: 200
+
+deployment:
+  auto_deploy: true
+  branch: develop
+  required_checks: [lint, typecheck, test]

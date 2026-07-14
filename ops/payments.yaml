@@ -1,0 +1,47 @@
+# Stripe Payments Configuration
+products:
+  - id: pro_monthly
+    name: "Pro Plan"
+    description: "Personalized recommendations + portfolio + outreach"
+    prices:
+      - id: price_pro_monthly
+        amount: 2900
+        currency: USD
+        interval: month
+      - id: price_pro_annual
+        amount: 29000
+        currency: USD
+        interval: year
+        description: "2 months free"
+
+  - id: enterprise_monthly
+    name: "Enterprise Plan"
+    description: "API access + team seats + custom scrapers"
+    prices:
+      - id: price_enterprise_monthly
+        amount: 9900
+        currency: USD
+        interval: month
+
+webhooks:
+  - event: checkout.session.completed
+    handler: handleCheckoutComplete
+  - event: invoice.payment_succeeded
+    handler: handlePaymentSuccess
+  - event: customer.subscription.deleted
+    handler: handleCancellation
+
+limits:
+  free:
+    arbitrageSearches: 10
+    portfolioGenerations: 0
+    outreachTemplates: 0
+  pro:
+    arbitrageSearches: 100
+    portfolioGenerations: 50
+    outreachTemplates: unlimited
+  enterprise:
+    arbitrageSearches: unlimited
+    portfolioGenerations: unlimited
+    outreachTemplates: unlimited
+    apiCalls: 10000

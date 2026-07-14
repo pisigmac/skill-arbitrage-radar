@@ -1,0 +1,28 @@
+# Performance Budgets
+slos:
+  latency:
+    p50: 50ms
+    p95: 200ms
+    p99: 500ms
+  availability:
+    target: 99.9%
+    window: 30d
+  errors:
+    rate: 0.1%
+    window: 5m
+  scraping:
+    data_freshness: 24h
+    success_rate: 95%
+  database:
+    connection_pool_max: 20
+    query_timeout: 5s
+
+budgets:
+  frontend:
+    js_bundle: 600KB (gzipped)
+    css_bundle: 100KB (gzipped)
+    first_contentful_paint: 1.5s
+    time_to_interactive: 3s
+  api:
+    response_size: 100KB
+    serialization_time: 10ms

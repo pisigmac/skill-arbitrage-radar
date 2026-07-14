@@ -1,0 +1,31 @@
+# Empty State Designs
+
+## Dashboard (no data)
+Headline: "No arbitrage opportunities yet"
+Body: "We're analyzing market data. Check back soon or refresh the page."
+Action: "Refresh" button
+
+## Execution Board (no tasks)
+Headline: "Your execution board is empty"
+Body: "Start by selecting an arbitrage opportunity from your dashboard."
+Action: "Browse Opportunities" link
+
+## Income Tracker (no income)
+Headline: "Start tracking your income"
+Body: "Log your first project earnings to see analytics and projections."
+Action: "Log Income" button
+
+## Profile (first visit)
+Headline: "Set up your profile"
+Body: "Tell us about your skills so we can find the best arbitrage opportunities for you."
+Action: Form with skill selection
+
+## Opportunity Detail (no portfolio)
+Headline: "Portfolio project coming soon"
+Body: "We're generating a custom project for this niche."
+Fallback: Generic project template
+
+## Outreach (no templates)
+Headline: "Templates loading..."
+Body: "We're preparing outreach copy for this niche."
+Fallback: Generic outreach template

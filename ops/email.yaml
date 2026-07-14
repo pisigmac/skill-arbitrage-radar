@@ -1,0 +1,31 @@
+# Email Configuration (Resend)
+provider: resend
+from: "Skill Arbitrage Radar <noreply@skillarbitrageradar.com>"
+reply_to: support@skillarbitrageradar.com
+
+templates:
+  - id: welcome
+    subject: "Welcome to Skill Arbitrage Radar"
+    trigger: user_signup
+  - id: weekly_digest
+    subject: "Your Weekly Arbitrage Opportunities"
+    trigger: weekly_cron
+    frequency: "0 9 * * MON"
+  - id: recommendation_alert
+    subject: "New high-score arbitrage opportunity found"
+    trigger: new_opportunity_above_threshold
+    threshold: 75
+  - id: income_reminder
+    subject: "Don't forget to log your income"
+    trigger: cron
+    frequency: "0 18 * * FRI"
+  - id: task_due
+    subject: "Task due soon: {{task_title}}"
+    trigger: task_due_date - 24h
+
+sequences:
+  onboarding:
+    - delay: 0h -> welcome
+    - delay: 24h -> profile_setup_reminder
+    - delay: 72h -> first_arbitrage_tip
+    - delay: 168h -> weekly_digest

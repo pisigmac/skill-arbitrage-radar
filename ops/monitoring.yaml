@@ -1,0 +1,43 @@
+# Monitoring & Alerting (Prometheus + Grafana)
+metrics:
+  - name: api_request_duration_seconds
+    type: histogram
+    labels: [method, endpoint, status]
+  - name: api_requests_total
+    type: counter
+    labels: [method, endpoint, status]
+  - name: db_query_duration_seconds
+    type: histogram
+    labels: [table, operation]
+  - name: scraper_runs_total
+    type: counter
+    labels: [source, status]
+  - name: active_users
+    type: gauge
+  - name: arbitrage_searches_total
+    type: counter
+    labels: [tier]
+
+alerts:
+  - name: HighErrorRate
+    condition: rate(api_requests_total{status=~"5.."}[5m]) > 0.01
+    severity: critical
+    action: page_oncall
+  - name: HighLatency
+    condition: histogram_quantile(0.95, api_request_duration_seconds) > 0.5
+    severity: warning
+    action: slack_dev
+  - name: ScraperDown
+    condition: scraper_runs_total{status="failed"} > 3
+    severity: warning
+    action: slack_dev
+  - name: DBConnectionsHigh
+    condition: db_connections_active > 15
+    severity: warning
+    action: slack_dev
+
+dashboards:
+  - api_performance
+  - business_metrics
+  - scraper_health
+  - database_performance

@@ -1,0 +1,28 @@
+# Data Retention Policies
+
+## GDPR / CCPA Compliance
+
+### Retention Periods
+| Data Type | Retention | Action After |
+|-----------|-----------|--------------|
+| User account | Until deletion | Soft delete + 30d grace |
+| Profile data | Until account deletion | Cascade delete |
+| Income logs | 7 years | Archive to cold storage |
+| Execution tasks | 2 years | Anonymize |
+| Recommendations | 1 year | Aggregate only |
+| Scraping logs | 90 days | Purge |
+| Job postings | 30 days | Purge (refresh cycle) |
+| Outreach events | 90 days | Anonymize |
+
+### Deletion Workflow
+1. User requests deletion via settings
+2. Confirmation email sent
+3. 7-day cooling period
+4. Soft delete (mark as deleted)
+5. 30-day grace period
+6. Hard delete from all tables
+7. Confirmation email sent
+
+### Export
+Users can request data export in JSON format.
+Processing time: up to 48 hours.

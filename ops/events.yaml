@@ -1,0 +1,28 @@
+# Analytics Event Schema
+events:
+  - name: page_view
+    properties: [page, referrer, user_id]
+  - name: arbitrage_list_viewed
+    properties: [count, filters, user_id]
+  - name: opportunity_saved
+    properties: [combination_id, arbitrage_score, user_id]
+  - name: opportunity_dismissed
+    properties: [combination_id, user_id]
+  - name: portfolio_viewed
+    properties: [combination_id, user_id]
+  - name: outreach_template_copied
+    properties: [template_id, channel, variant, user_id]
+  - name: task_created
+    properties: [status, priority, has_recommendation, user_id]
+  - name: task_status_changed
+    properties: [task_id, from_status, to_status, user_id]
+  - name: income_logged
+    properties: [amount, source, has_recommendation, user_id]
+  - name: profile_updated
+    properties: [skills_count, experience_level, user_id]
+
+privacy:
+  gdpr_compliant: true
+  ccpa_compliant: true
+  retention_days: 90
+  pii_excluded: true

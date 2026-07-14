@@ -1,0 +1,28 @@
+# Feature Flags
+flags:
+  new_scraper_engine:
+    description: "Enable new Playwright-based scraper"
+    default: false
+    rollout: gradual
+    target: 10%
+  llm_rationale:
+    description: "Use LLM for recommendation rationale"
+    default: true
+    rollout: immediate
+  pdf_portfolio:
+    description: "Generate PDF portfolio briefs"
+    default: false
+    rollout: gradual
+    target: 5%
+  dark_mode:
+    description: "Enable dark mode toggle"
+    default: false
+    rollout: gradual
+    target: 20%
+  team_features:
+    description: "Enable team collaboration"
+    default: false
+    segments: [enterprise]
+
+provider:
+  type: environment
